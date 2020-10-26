@@ -5,7 +5,6 @@ import PaletteFooter from './PaletteFooter';
 import Navbar from './Navbar';
 import styles from './styles/PaletteStyles';
 import { withStyles } from "@material-ui/styles";
-import './Palette.css';
 
 class SingleColorPalette extends Component {
 
