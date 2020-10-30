@@ -1,5 +1,5 @@
 import styles from './styles/NewPaletteFormStyles';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,8 +18,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import { ChromePicker } from 'react-color';
+import { Button } from '@material-ui/core';
 
-const drawerWidth = 240;
+const drawerWidth = 400;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,7 +83,9 @@ const useStyles = makeStyles((theme) => ({
 export default function NewPaletteForm() {
     const classes = useStyles();
     const theme = useTheme();
-    const[open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [currColor, setColor] = useState('teal');
+    const [colors, setColors] = useState(['purple', 'green', 'baige'])
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -90,6 +94,15 @@ export default function NewPaletteForm() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const updateColor = newColor => {
+        // console.log(newColor.hex);
+        setColor(newColor.hex);
+    }
+
+    const addColor = newColor => {
+        setColors([...colors, newColor]);
+    }
 
     return(
     <div className = { classes.root } >
@@ -130,30 +143,37 @@ export default function NewPaletteForm() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        <Typography
+            variant='h4'>Palette Design</Typography>
+        <div>
+            <Button
+                variant='contained'
+                color='secondary'>Clear</Button>
+            <Button
+                variant='contained'
+                color='primary'>Random</Button>
+        </div>
+        <ChromePicker
+            color={currColor}
+            onChangeComplete={newColor => updateColor(newColor)} />
+        <Button
+            style={{ background : currColor }}
+            onClick={() => addColor(currColor)}
+            variant='contained'
+            color='primary'>ADD</Button>
+
       </Drawer>
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
-    <div className={classes.drawerHeader} />
+        <div className={classes.drawerHeader} />
+        <ul>
+            {colors.map(c => (
+                <li>{c}</li>
+            ))}
+        </ul>
       </main>
     </div>
   );

@@ -1,5 +1,3 @@
-import { green } from "@material-ui/core/colors"
-
 export default {
     Navbar: {
         display: "flex",
