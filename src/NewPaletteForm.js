@@ -20,6 +20,8 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { ChromePicker } from 'react-color';
 import { Button } from '@material-ui/core';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import NewColorBox from './NewColorBox';
 
 const drawerWidth = 400;
 
@@ -63,6 +65,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
     },
     content: {
+        //navbar is 64px
+        height: 'calc(100vh - 64px)',
         flexGrow: 1,
         padding: theme.spacing(3),
         transition: theme.transitions.create('margin', {
@@ -85,23 +89,29 @@ export default function NewPaletteForm() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [currColor, setColor] = useState('teal');
-    const [colors, setColors] = useState(['purple', 'green', 'baige'])
+    const [colors, setColors] = useState([]);
+    const [name, setName] = useState('');
 
     const handleDrawerOpen = () => {
-        setOpen(true);
+      setOpen(true);
     };
 
     const handleDrawerClose = () => {
-        setOpen(false);
+      setOpen(false);
     };
 
     const updateColor = newColor => {
-        // console.log(newColor.hex);
-        setColor(newColor.hex);
+      // console.log(newColor.hex);
+      setColor(newColor.hex);
     }
 
-    const addColor = newColor => {
-        setColors([...colors, newColor]);
+    const addColor = () => {
+      const newColor = {color: currColor, name: name};
+      setColors([...colors, newColor]);
+    }
+
+    const handleChange = evt => {
+      setName(evt.target.value);
     }
 
     return(
@@ -156,11 +166,25 @@ export default function NewPaletteForm() {
         <ChromePicker
             color={currColor}
             onChangeComplete={newColor => updateColor(newColor)} />
-        <Button
-            style={{ background : currColor }}
-            onClick={() => addColor(currColor)}
+        <ValidatorForm
+          onSubmit={addColor}
+          // ref="form"
+          // onError={errors => console.log(errors)}
+        >
+          <TextValidator
+            value={name}
+            onChange={handleChange}
+            // label="Email"
+            // name="email"
+            validators={['required', 'isEmail']}
+            errorMessages={['this field is required', 'email is not valid']}
+          />
+          <Button
+            type='submit'
+            style={{ background: currColor }}
             variant='contained'
             color='primary'>ADD</Button>
+        </ValidatorForm>
 
       </Drawer>
       <main
@@ -169,11 +193,11 @@ export default function NewPaletteForm() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <ul>
-            {colors.map(c => (
-                <li>{c}</li>
-            ))}
-        </ul>
+        {colors.map(c => (
+          <NewColorBox 
+            color={c.color}
+            name={c.name} />
+        ))}
       </main>
     </div>
   );
