@@ -1,5 +1,5 @@
 import styles from './styles/NewPaletteFormStyles';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -89,7 +89,10 @@ export default function NewPaletteForm() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [currColor, setColor] = useState('teal');
-    const [colors, setColors] = useState([]);
+    const [colors, setColors] = useState([{
+        name: 'purple',
+        color: 'purple'
+    }]);
     const [name, setName] = useState('');
 
     const handleDrawerOpen = () => {
@@ -108,11 +111,29 @@ export default function NewPaletteForm() {
     const addColor = () => {
       const newColor = {color: currColor, name: name};
       setColors([...colors, newColor]);
+      setName('');
     }
 
     const handleChange = evt => {
-      setName(evt.target.value);
+      setName(evt.target.value)
     }
+
+    useEffect(() => {
+      // custom rule will have check if color name is unique
+      ValidatorForm.addValidationRule('isColorNameUnique', (value) => 
+        colors.every(
+          ({name}) => name.toLowerCase() !== value.toLowerCase()
+        )
+      )
+    }, [name])
+    useEffect(() => {
+      // custom rule will have check if color name is unique
+      ValidatorForm.addValidationRule('isColorUnique', (value) => 
+        colors.every(
+          ({color}) => color !== currColor
+        )
+      )
+    })
 
     return(
     <div className = { classes.root } >
@@ -176,8 +197,8 @@ export default function NewPaletteForm() {
             onChange={handleChange}
             // label="Email"
             // name="email"
-            validators={['required', 'isEmail']}
-            errorMessages={['this field is required', 'email is not valid']}
+            validators={['required', 'isColorNameUnique', 'isColorUnique']}
+            errorMessages={['enter a color name', 'color name already used', 'color already used']}
           />
           <Button
             type='submit'
