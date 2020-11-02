@@ -1,4 +1,4 @@
-import styles from './styles/NewPaletteFormStyles';
+// import styles from './styles/NewPaletteFormStyles';
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -93,7 +93,8 @@ const NewPaletteForm = props => {
         name: 'purple',
         color: 'purple'
     }]);
-    const [name, setName] = useState('');
+    const [colorName, setColorName] = useState('');
+    const [paletteName, setPaletteName] = useState('');
 
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -109,24 +110,30 @@ const NewPaletteForm = props => {
     }
 
     const addColor = () => {
-      const newColor = {color: currColor, name: name};
+      const newColor = {color: currColor, name: colorName};
       setColors([...colors, newColor]);
-      setName('');
+      setColorName('');
     }
 
-    const handleChange = evt => {
-      setName(evt.target.value)
+    const handleColorNameChange = evt => {
+      setColorName(evt.target.value)
+    }
+    const handlePaletteNameChange = evt => {
+      setPaletteName(evt.target.value)
     }
 
     const handleSubmit = () => {
-      let newName = 'New Test Palette';
       const newPalette = {
-        paletteName: newName,
-        id: newName.toLowerCase().replace(/ /g, '-'),
+        paletteName: paletteName,
+        id: paletteName.toLowerCase().replace(/ /g, '-'),
         colors: colors
       }
       props.savePalette(newPalette);
       props.history.push('/');
+    }
+
+    const removeColor = colorName => {
+      setColors(colors.filter(c => c.name !== colorName))
     }
 
     useEffect(() => {
@@ -136,12 +143,20 @@ const NewPaletteForm = props => {
           ({name}) => name.toLowerCase() !== value.toLowerCase()
         )
       )
-    }, [name])
+    }, [colorName])
     useEffect(() => {
-      // custom rule will have check if color name is unique
+      // custom rule will have check if color is unique
       ValidatorForm.addValidationRule('isColorUnique', (value) => 
         colors.every(
           ({color}) => color !== currColor
+        )
+      )
+    })
+    useEffect(() => {
+      // custom rule will have check if palette name is unique
+      ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => 
+        props.palettes.every(
+          ({ id }) => id !== paletteName.toLowerCase().replace(/ /g, '-')
         )
       )
     })
@@ -169,10 +184,21 @@ const NewPaletteForm = props => {
           <Typography variant="h6" noWrap>
                         Persistent drawer
           </Typography>
-          <Button 
-            onClick={handleSubmit}
-            variant='contained'
-            color='primary'>Save Palette</Button>
+          <ValidatorForm 
+              onSubmit={handleSubmit} >
+            <TextValidator
+              label='Palette Name'
+              name='newPaletteName'
+              value={paletteName}
+              onChange={handlePaletteNameChange}
+              validators={['required', 'isPaletteNameUnique']}
+              errorMessages={['enter a palette name', 'palette name already used']}
+            />
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'>Save Palette</Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -209,10 +235,10 @@ const NewPaletteForm = props => {
           // onError={errors => console.log(errors)}
         >
           <TextValidator
-            value={name}
-            onChange={handleChange}
-            // label="Email"
-            // name="email"
+            value={colorName}
+            onChange={handleColorNameChange}
+            label="New Color Name"
+            name="NewColorName"
             validators={['required', 'isColorNameUnique', 'isColorUnique']}
             errorMessages={['enter a color name', 'color name already used', 'color already used']}
           />
@@ -231,9 +257,12 @@ const NewPaletteForm = props => {
       >
         <div className={classes.drawerHeader} />
         {colors.map(c => (
-          <NewColorBox 
+          <NewColorBox
+            key={c.color} 
             color={c.color}
-            name={c.name} />
+            name={c.name}
+            handleClick={() => removeColor(c.name)}
+          />
         ))}
       </main>
     </div>
