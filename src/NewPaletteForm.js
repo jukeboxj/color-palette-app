@@ -21,7 +21,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import { ChromePicker } from 'react-color';
 import { Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import NewColorBox from './NewColorBox';
+import DraggableColorList from './DraggableColorList';
+import {arrayMove} from 'react-sortable-hoc';
 
 const drawerWidth = 400;
 
@@ -134,6 +135,10 @@ const NewPaletteForm = props => {
 
     const removeColor = colorName => {
       setColors(colors.filter(c => c.name !== colorName))
+    }
+
+    const onSortEnd = ({oldIndex, newIndex}) => {
+      setColors(arrayMove(colors, oldIndex, newIndex))
     }
 
     useEffect(() => {
@@ -256,14 +261,11 @@ const NewPaletteForm = props => {
         })}
       >
         <div className={classes.drawerHeader} />
-        {colors.map(c => (
-          <NewColorBox
-            key={c.color} 
-            color={c.color}
-            name={c.name}
-            handleClick={() => removeColor(c.name)}
-          />
-        ))}
+        <DraggableColorList 
+          colors={colors} 
+          removeColor={removeColor}
+          axis='xy'
+          onSortEnd={onSortEnd} />
       </main>
     </div>
   );

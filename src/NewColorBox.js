@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles/NewColorBoxStyles';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import {SortableElement} from 'react-sortable-hoc';
 
 const NewColorBox = props => {
     const {classes, name, color, handleClick} = props;
@@ -22,4 +23,4 @@ const NewColorBox = props => {
     )
 }
 
-export default withStyles(styles)(NewColorBox);
+export default SortableElement(withStyles(styles)(NewColorBox));
