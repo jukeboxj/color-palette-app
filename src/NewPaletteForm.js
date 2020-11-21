@@ -90,10 +90,7 @@ const NewPaletteForm = props => {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [currColor, setColor] = useState('teal');
-    const [colors, setColors] = useState([{
-        name: 'purple',
-        color: 'purple'
-    }]);
+    const [colors, setColors] = useState(props.palettes[0].colors);
     const [colorName, setColorName] = useState('');
     const [paletteName, setPaletteName] = useState('');
 
@@ -139,6 +136,23 @@ const NewPaletteForm = props => {
 
     const onSortEnd = ({oldIndex, newIndex}) => {
       setColors(arrayMove(colors, oldIndex, newIndex))
+    }
+
+    const clearColors = () => {
+      setColors([])
+    }
+
+    const addRandomColor = () => {
+      //pick random color from exisiting palettes
+      const allColors = props.palettes.map(p => p.colors).flat();
+      const rand = Math.floor(Math.random() * allColors.length);
+      const randColor = allColors[rand];
+      setColors([...colors, randColor]);
+    }
+
+    const isPaletteFull = () => {
+      console.log('i am triggered', colors.length >= props.maxColors);
+      return colors.length >= props.maxColors;
     }
 
     useEffect(() => {
@@ -226,10 +240,17 @@ const NewPaletteForm = props => {
         <div>
             <Button
                 variant='contained'
-                color='secondary'>Clear</Button>
+                color='secondary'
+                onClick={clearColors}>
+                  Clear Palette
+            </Button>
             <Button
                 variant='contained'
-                color='primary'>Random</Button>
+                color='primary'
+                onClick={addRandomColor}
+                disabled={isPaletteFull()}>
+                  Random Color
+            </Button>
         </div>
         <ChromePicker
             color={currColor}
@@ -251,7 +272,11 @@ const NewPaletteForm = props => {
             type='submit'
             style={{ background: currColor }}
             variant='contained'
-            color='primary'>ADD</Button>
+            disabled={isPaletteFull()}
+            style={{ backgroundColor: isPaletteFull() ? 'grey' : currColor }}
+            color='primary'>
+              ADD COLOR
+          </Button>
         </ValidatorForm>
 
       </Drawer>
@@ -270,5 +295,7 @@ const NewPaletteForm = props => {
     </div>
   );
 }
+
+NewPaletteForm.defaultProps = { maxColors : 20 };
 
 export default NewPaletteForm;
