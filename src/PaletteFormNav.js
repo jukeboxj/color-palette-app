@@ -18,24 +18,24 @@ export default class PaletteFormNav extends Component {
         paletteName : ''
     }
 
-    componentDidMount(){
-        // custom rule will have check if palette name is unique
-        ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
-            this.props.palettes.every(
-                ({ id }) => id !== this.state.paletteName.toLowerCase().replace(/ /g, '-')
-            )
-        )
-    }
-
     handleChange = evt => {
         this.setState({
             paletteName : evt.target.value
         })
     }
     
+    componentDidMount() {
+        // custom rule will have check if palette name is unique
+        ValidatorForm.addValidationRule('isPaletteNameUnique', (value) =>
+            this.props.palettes.every(
+                ({ id }) => id !== this.state.paletteName.toLowerCase().replace(/ /g, '-')
+            )
+        );
+    }
+
     render() {
 
-        const { classes, open, palettes, handleSubmit, handleDrawerOpen } = this.props;
+        const { classes, open, handleSubmit, handleDrawerOpen } = this.props;
         const { paletteName } = this.state;
 
         return (
