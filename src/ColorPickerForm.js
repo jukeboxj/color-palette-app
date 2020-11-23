@@ -1,10 +1,38 @@
 import React, { Component } from 'react';
-
+import { withStyles } from '@material-ui/core/styles';
 import { ChromePicker } from 'react-color';
 import { Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
-export default class ColorPickerForm extends Component {
+const styles = {
+    root: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'start',
+        alignItems: 'center',
+    },
+    picker: {
+        width: '100% !important',
+        marginTop: '2rem',
+    },
+    addColor: {
+        width: '100%',
+        padding: '1rem',
+        marginTop: '1rem',
+        fontSize: '1.5rem',
+    },
+    colorForm: {
+        width: '100%',
+    },
+    colorNameInput: {
+        width: '100%',
+        height: '70px',
+    },
+};
+
+class ColorPickerForm extends Component {
     
     state = {
         currColor : 'teal',
@@ -49,20 +77,25 @@ export default class ColorPickerForm extends Component {
 
     render() {
 
-        const { isPaletteFull } = this.props;
+        const { isPaletteFull, classes } = this.props;
         const { currColor, colorName } = this.state;
 
         return (
-            <div>
+            <div className={classes.root}>
                 <ChromePicker
+                    className={classes.picker}
                     color={currColor}
                     onChangeComplete={newColor => this.updateColor(newColor)} />
                 <ValidatorForm
+                    className={classes.colorForm}
                     onSubmit={this.handleSubmit}
                 // ref="form"
                 // onError={errors => console.log(errors)}
                 >
                     <TextValidator
+                        className={classes.colorNameInput}
+                        variant='filled'
+                        margin='normal'
                         value={colorName}
                         onChange={this.handleChange}
                         label="New Color Name"
@@ -71,6 +104,7 @@ export default class ColorPickerForm extends Component {
                         errorMessages={['enter a color name', 'color name already used', 'color already used']}
                     />
                     <Button
+                        className={classes.addColor}
                         type='submit'
                         style={{ background: currColor }}
                         variant='contained'
@@ -84,3 +118,5 @@ export default class ColorPickerForm extends Component {
         )
     }
 }
+
+export default withStyles(styles, { withTheme: true })(ColorPickerForm);
