@@ -26,6 +26,7 @@ const styles = theme => ({
         }),
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         height: '64px',
     },
     appBarShift: {
@@ -40,15 +41,32 @@ const styles = theme => ({
         marginRight: theme.spacing(2),
     },
     navBtns: {
-
-    }
+        marginRight: '1rem',
+    },
+    button: {
+        margin: '0 0.5rem',
+    },
+    link: {
+        textDecoration: 'none',
+    },
 });
 
 class PaletteFormNav extends Component {
 
+    state = {
+        formShowing : false,
+    }
+
+    handleClickOpen = () => {
+        this.setState({
+            formShowing: true,
+        })
+    }
+
     render() {
 
         const { classes, open, handleSubmit, handleDrawerOpen, palettes } = this.props;
+        const { formShowing } = this.state;
 
         return (
             <div className={classes.root}>
@@ -75,31 +93,23 @@ class PaletteFormNav extends Component {
                     </Toolbar>
 
                     <div className={classes.navBtns}>
-                        {/* <ValidatorForm
-                            onSubmit={() => handleSubmit(paletteName)} >
-                            <TextValidator
-                                label='Palette Name'
-                                name='newPaletteName'
-                                value={paletteName}
-                                onChange={this.handleChange}
-                                validators={['required', 'isPaletteNameUnique']}
-                                errorMessages={['enter a palette name', 'palette name already used']}
-                            />
-                            <Button
-                                type='submit'
-                                variant='contained'
-                                color='primary'>Save Palette</Button>
-                        </ValidatorForm> */}
-                        <PaletteMetaForm 
-                            handleSubmit={handleSubmit}
-                            palettes={palettes}
-                        />
-                        <Link to='/'>
-                            <Button variant='contained' color='secondary'>Go Back</Button>
+                        <Link className={classes.link} to='/'>
+                            <Button className={classes.button} variant='contained' color='secondary'>Go Back</Button>
                         </Link>
+                        <Button className={classes.button} variant="contained" color="primary" onClick={this.handleClickOpen}>
+                            Save
+                        </Button>
                     </div>
-
                 </AppBar>
+                
+                {formShowing && 
+                    <PaletteMetaForm
+                        handleSubmit={handleSubmit}
+                        palettes={palettes}
+                        formShowing={formShowing}
+                    />
+                }
+                
             </div>
         )
     }
