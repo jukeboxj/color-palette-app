@@ -5,9 +5,6 @@ const useStyles = makeStyles((theme, drawerWidth = DRAWER_WIDTH) => ({
     root: {
         display: 'flex',
     },
-    hide: {
-        display: 'none',
-    },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
@@ -20,6 +17,7 @@ const useStyles = makeStyles((theme, drawerWidth = DRAWER_WIDTH) => ({
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
+        width: '100%',
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
@@ -29,7 +27,7 @@ const useStyles = makeStyles((theme, drawerWidth = DRAWER_WIDTH) => ({
         //navbar is 64px
         height: 'calc(100vh - 64px)',
         flexGrow: 1,
-        padding: theme.spacing(3),
+        padding: 0,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
