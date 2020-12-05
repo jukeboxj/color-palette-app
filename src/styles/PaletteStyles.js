@@ -3,6 +3,7 @@ export default {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
+        overFlow: 'auto',
     },
     pColors: {
         height: "90%"
