@@ -26,6 +26,12 @@ class PaletteFormNav extends Component {
         })
     }
 
+    handleClickClose = () => {
+        this.setState({
+            formShowing: false,
+        })
+    }
+
     render() {
 
         const { classes, open, handleSubmit, handleDrawerOpen, palettes } = this.props;
@@ -70,6 +76,7 @@ class PaletteFormNav extends Component {
                         handleSubmit={handleSubmit}
                         palettes={palettes}
                         formShowing={formShowing}
+                        handleClickClose={this.handleClickClose}
                     />
                 }
                 

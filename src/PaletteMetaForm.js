@@ -6,21 +6,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart';
 
 export default function PaletteMetaForm(props) {
-    const [open, setOpen] = React.useState(props.formShowing);
+    const [stage, setStage] = React.useState('form');
     const [paletteName, setPaletteName] = useState('');
 
-    const { handleSubmit, palettes} = props;
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const { handleSubmit, palettes, handleClickClose } = props;
 
     const handlePaletteNameChange = evt => {
         setPaletteName(evt.target.value)
@@ -35,12 +28,30 @@ export default function PaletteMetaForm(props) {
         )
     })
 
+    const showEmoji = () => {
+        setStage('emoji');
+    }
+
+    const savePalette = emoji => {
+        // console.log(emoji.native);
+        const palette = {
+            paletteName: paletteName,
+            emoji: emoji.native,
+        }
+        handleSubmit(palette);
+    }
+
     return (
+
         <div>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={stage === 'emoji'} onClose={handleClickClose}>
+                <DialogTitle>Choose a Palette Emoji</DialogTitle>
+                <Picker title='Pick a emoji' onSelect={savePalette} />
+            </Dialog>
+            <Dialog open={stage === 'form'} onClose={handleClickClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
                 <ValidatorForm
-                    onSubmit={() => handleSubmit(paletteName)}
+                    onSubmit={showEmoji}
                 >
                     <DialogContent>
                         <DialogContentText>
@@ -59,7 +70,7 @@ export default function PaletteMetaForm(props) {
 
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={handleClickClose} color="primary">
                             Cancel
                         </Button>
                         <Button
