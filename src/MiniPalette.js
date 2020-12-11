@@ -4,7 +4,13 @@ import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import { withStyles } from '@material-ui/styles';
 
 const MiniPalette = props => {
-    const { classes, paletteName, emoji, colors, handleClick} = props;
+    const { classes, paletteName, emoji, colors, handleClick, deletePalette, id } = props;
+
+    const handleDelete = e => {
+        e.stopPropagation();
+        deletePalette(id);
+    }
+
     const miniColorBoxes = colors.map(c => 
         <div 
             className={classes.miniColor} 
@@ -13,11 +19,11 @@ const MiniPalette = props => {
 
     return (
         <div className={classes.root} onClick={handleClick}>
-            <div className={classes.delete}>        
-                <DeleteForeverOutlinedIcon 
-                    className={classes.deleteIcon}
-                    style={{ transition: 'all 0.3s ease-in-out' }} />
-            </div>
+            <DeleteForeverOutlinedIcon 
+                className={classes.deleteIcon}
+                style={{ transition: 'all 0.3s ease-in-out' }}
+                onClick={handleDelete} 
+            />
             <div className={classes.colors}>{miniColorBoxes}</div>
             <h5 className={classes.title}>{paletteName} <span className={classes.emoji}>{emoji}</span></h5>
         </div>
