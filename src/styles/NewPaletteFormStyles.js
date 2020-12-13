@@ -4,6 +4,7 @@ import { DRAWER_WIDTH } from '../constants';
 const useStyles = makeStyles((theme, drawerWidth = DRAWER_WIDTH) => ({
     root: {
         display: 'flex',
+        height: '100vh',
     },
     drawer: {
         width: drawerWidth,
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme, drawerWidth = DRAWER_WIDTH) => ({
         justifyContent: 'center',
     },
     btn: {
-        width: '50%'
+        width: '50%',
     },
 }));
 

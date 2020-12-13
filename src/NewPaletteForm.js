@@ -19,7 +19,7 @@ import ColorPickerForm from './ColorPickerForm';
 const NewPaletteForm = props => {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [colors, setColors] = useState(props.palettes[0].colors);
 
     const handleDrawerOpen = () => {
@@ -115,7 +115,7 @@ const NewPaletteForm = props => {
                 onClick={addRandomColor}
                 disabled={isPaletteFull()}>
                 Random Color
-            </Button>
+              </Button>
             </div>
 
             <ColorPickerForm
@@ -137,7 +137,8 @@ const NewPaletteForm = props => {
           colors={colors} 
           removeColor={removeColor}
           axis='xy'
-          onSortEnd={onSortEnd} />
+          onSortEnd={onSortEnd}
+          drawerOpen={open} />
       </main>
     </div>
   );

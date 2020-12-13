@@ -5,7 +5,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import {SortableElement} from 'react-sortable-hoc';
 
 const NewColorBox = props => {
-    const {classes, name, color, handleClick} = props;
+    const { classes, name, color, handleClick, drawerOpen } = props;
     return (
         <div
             className={classes.root}

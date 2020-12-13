@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
     Navbar: {
         display: "flex",
@@ -17,6 +19,10 @@ export default {
         '& a': {
             textDecoration: "none",
             color: "black",
+        },
+        [sizes.down('xs')]: {
+            display: props => props.showLvl
+                ? "none" : "flex",
         }
     },
     slider: {
@@ -37,7 +43,10 @@ export default {
             width: "13px",
             /* marginLeft: "-5px", */
             marginTop: "-3px",
-        }
+        },
+        [sizes.down('xs')]: {
+            width: '100%',
+        },
     },
     selectContainer: {
         marginLeft: "auto",
