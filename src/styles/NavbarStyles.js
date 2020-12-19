@@ -6,6 +6,10 @@ export default {
         alignItems: "center",
         justifyContent: "flex-start",
         height: "6vh",
+        [sizes.down('md')]: {
+            flexDirection: "column",
+            height: "10vh",
+        }
     },
     logo: {
         marginRight: "15px",
@@ -20,9 +24,19 @@ export default {
             textDecoration: "none",
             color: "black",
         },
-        [sizes.down('xs')]: {
-            display: props => props.showLvl
-                ? "none" : "flex",
+        [sizes.down('md')]: {
+            width: "100%",
+            paddingLeft: '50px',
+        }
+    },
+    container: {
+        width: '100%',
+        display: 'flex',
+        alignItems: "center",
+        justifyContent: "flex-start",
+        [sizes.down('md')]: {
+            width: "100%",
+            height: "100%",
         }
     },
     slider: {

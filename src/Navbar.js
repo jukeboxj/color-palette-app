@@ -33,23 +33,25 @@ class Navbar extends Component {
                 <div className={classes.logo}>
                     <Link to='/'>ReactColorPicker</Link>
                 </div> 
-                {showLvl &&
-                    <div className={classes.slider}>
-                        <span>Level: {level}</span>
-                        <div>
-                            <Slider min={100}
-                                max={900}
-                                step={100}
-                                onAfterChange={changeLevel}
-                                defaultValue={level} />
-                        </div>
-                    </div>}
-                <div className={classes.selectContainer}>
-                    <Select value={format} onChange={this.handleChange}>
-                        <MenuItem value='hex'>HEX - #ffffff</MenuItem>
-                        <MenuItem value='rgb'>RBG - rbg(255,255,255)</MenuItem>
-                        <MenuItem value='rgba'>RBGA - rbga(255,255,255,1.0)</MenuItem>
-                    </Select>
+                <div className={classes.container}>
+                    {showLvl &&
+                        <div className={classes.slider}>
+                            <span>Level: {level}</span>
+                            <div>
+                                <Slider min={100}
+                                    max={900}
+                                    step={100}
+                                    onAfterChange={changeLevel}
+                                    defaultValue={level} />
+                            </div>
+                        </div>}
+                    <div className={classes.selectContainer}>
+                        <Select value={format} onChange={this.handleChange}>
+                            <MenuItem value='hex'>HEX - #ffffff</MenuItem>
+                            <MenuItem value='rgb'>RBG - rbg(255,255,255)</MenuItem>
+                            <MenuItem value='rgba'>RBGA - rbga(255,255,255,1.0)</MenuItem>
+                        </Select>
+                    </div>
                 </div>
                 <Snackbar 
                     anchorOrigin={{ vertical:"bottom", horizontal:"left" }}
