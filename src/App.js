@@ -39,6 +39,13 @@ class App extends Component {
     //save palettes to local storage
     window.localStorage.setItem('palettes', JSON.stringify(this.state.palettes))
   }
+
+  componentDidUpdate = () => {
+    if (!this.state.palettes.length) {
+      this.setState({ palettes: seedColors },
+        this.syncLocalStorage)
+    }
+  }
   
   render() {
     return (
