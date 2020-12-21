@@ -1,8 +1,11 @@
+import red from '@material-ui/core/colors/red';
+
 export default {
     root: {
         backgroundColor: 'white',
         borderRadius: '5px',
         padding: '.5rem',
+        marginBottom: '.5rem',
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -40,10 +43,10 @@ export default {
         marginBottom: '-3.5px'
     },
     deleteIcon: {
-        color: '#eb3d30',
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        width: '1.7rem',
-        height: '1.7rem',
+        color: red[600],
+        backgroundColor: red[100],
+        width: '2rem',
+        height: '2rem',
         position: 'absolute',
         right: '0px',
         top: '0px',

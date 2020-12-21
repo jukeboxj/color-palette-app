@@ -72,5 +72,11 @@ export default {
             gridTemplateColumns: 'repeat(1, 100%)',
             gridGap: '1rem',
         },
-    }
+    },
+    // cancelIcon: {
+    //     color: 'green',
+    // },
+    // deleteIcon: {
+    //     color: '#eb3d30',
+    // },
 }
