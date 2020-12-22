@@ -123,6 +123,7 @@ const NewPaletteForm = props => {
               isPaletteFull={isPaletteFull}
               addColor={addColor}
               colors={colors}
+              distance={20}
             />
         </div>
 
