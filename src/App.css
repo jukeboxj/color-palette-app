@@ -1,3 +1,5 @@
-.App {
-    overflow: hidden;
+.page {
+    height: 100vh;
+    position: fixed;
+    width: 100%;
 }
