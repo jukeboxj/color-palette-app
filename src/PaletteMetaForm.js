@@ -39,6 +39,7 @@ export default function PaletteMetaForm(props) {
             emoji: emoji.native,
         }
         handleSubmit(palette);
+        setStage('');
     }
 
     return (
@@ -76,8 +77,10 @@ export default function PaletteMetaForm(props) {
                         <Button
                             type='submit'
                             variant='contained'
-                            color='primary'>Save Palette</Button
+                            color='primary'
                         >
+                            Save Palette
+                        </Button>
                     </DialogActions>
                 </ValidatorForm>
             </Dialog>
