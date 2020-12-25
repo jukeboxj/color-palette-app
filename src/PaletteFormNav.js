@@ -43,9 +43,8 @@ class PaletteFormNav extends Component {
                 <AppBar
                     color='default'
                     position="fixed"
-                    className={clsx(classes.appBar, {
-                        [classes.appBarShift]: open,
-                    })}>
+                    className={clsx(classes.appBar, {[classes.appBarShift]: open})}
+                >
                     <Toolbar>
                         <IconButton
                             color="inherit"

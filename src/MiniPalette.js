@@ -24,8 +24,6 @@ const MiniPalette = React.memo(props =>
             />
         )
 
-        console.log('RENDING', paletteName);
-
         return (
             <div className={classes.root} onClick={handleClick}>
                 <DeleteForeverOutlinedIcon

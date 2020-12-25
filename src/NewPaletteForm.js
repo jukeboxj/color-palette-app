@@ -67,7 +67,7 @@ const NewPaletteForm = props => {
     }
 
     const isPaletteFull = () => {
-      console.log('i am triggered', colors.length >= props.maxColors);
+      // console.log('i am triggered', colors.length >= props.maxColors);
       return colors.length >= props.maxColors;
     }
 
