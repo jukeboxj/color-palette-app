@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import { ChromePicker } from 'react-color';
 import { Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import styles from './styles/ColorPickerFormStyles';
-
+import { withStyles } from '@material-ui/core/styles';
 
 class ColorPickerForm extends Component {
     
@@ -80,7 +79,6 @@ class ColorPickerForm extends Component {
                     <Button
                         className={classes.addColor}
                         type='submit'
-                        style={{ background: currColor }}
                         variant='contained'
                         disabled={isPaletteFull()}
                         style={{ backgroundColor: isPaletteFull() ? 'grey' : currColor }}

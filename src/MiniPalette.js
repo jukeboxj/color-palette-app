@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import styles from './styles/MiniPaletteStyles';
+import React from 'react';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
+import styles from './styles/MiniPaletteStyles';
 import { withStyles } from '@material-ui/styles';
 
 const MiniPalette = React.memo(props => 

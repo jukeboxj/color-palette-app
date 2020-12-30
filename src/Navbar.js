@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Slider from 'rc-slider';
-
 import styles from './styles/NavbarStyles';
+import { withStyles } from '@material-ui/styles';
 import 'rc-slider/assets/index.css';
 
 class Navbar extends Component {
@@ -25,8 +24,8 @@ class Navbar extends Component {
     }
 
     render() {
-        const {level, format, changeLevel, showLvl, classes} = this.props;
-        const {open} = this.state;
+        const { level, format, changeLevel, showLvl, classes } = this.props;
+        const { open } = this.state;
 
         return (
             <header className={classes.Navbar}>

@@ -32,7 +32,7 @@ class ColorBox extends Component {
                         style={{ background: bg }}></div>
                     <div className={clsx(classes.copyMsg, { [classes.showMsg]: copied })}>
                         <h1>Copied!</h1>
-                        <p className={classes.textColor}>{this.props.bg}</p>
+                        <p className={classes.textColor}>{bg}</p>
                     </div>
                     <div>
                         <div className={classes.boxContent}>
