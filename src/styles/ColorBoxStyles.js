@@ -34,7 +34,7 @@ export default {
     },
     textColor: {
         color: props => chroma.contrast('white', props.bg) > chroma.contrast('black', props.bg)
-            ? 'white' : "rgba(0, 0, 0, 0.5)"
+            ? 'white' : "rgba(0, 0, 0, 0.5)",
     },
     seeMore: {
         color: props => chroma.contrast('white', props.bg) > chroma.contrast('black', props.bg)

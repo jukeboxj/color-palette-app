@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ChromePicker } from 'react-color';
 import { Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import styles from './styles/ColorPickerFormStyles';
+import useStyles from './styles/ColorPickerFormStyles';
 import { withStyles } from '@material-ui/core/styles';
 
 class ColorPickerForm extends Component {
@@ -82,13 +82,14 @@ class ColorPickerForm extends Component {
                         variant='contained'
                         disabled={isPaletteFull()}
                         style={{ backgroundColor: isPaletteFull() ? 'grey' : currColor }}
-                        color='primary'>
+                        color='primary'
+                    >
                         ADD COLOR
-                </Button>
-                        </ValidatorForm>
+                    </Button>
+                </ValidatorForm>
             </div>
         )
     }
 }
 
-export default withStyles(styles, { withTheme: true })(ColorPickerForm);
+export default withStyles(useStyles)(ColorPickerForm);

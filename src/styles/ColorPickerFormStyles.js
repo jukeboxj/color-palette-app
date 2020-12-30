@@ -1,4 +1,6 @@
-export default {
+import { DRAWER_WIDTH } from '../constants';
+
+const useStyles = theme => ({
     root: {
         width: '100%',
         height: '100%',
@@ -24,4 +26,6 @@ export default {
         width: '100%',
         height: '70px',
     },
-}
+}) 
+
+export default useStyles;

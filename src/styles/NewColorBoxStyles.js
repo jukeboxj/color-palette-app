@@ -1,4 +1,6 @@
 import sizes from './sizes';
+import chroma from 'chroma-js';
+import red from '@material-ui/core/colors/red';
 
 export default {
     root: {
@@ -9,8 +11,7 @@ export default {
         position: "relative",
         cursor: "pointer",
         marginBottom: "-4px",
-        '&:hover svg': {
-            color: 'white',
+        '&:hover svg': {      
             transform: 'scale(1.5)',
         },
         [sizes.down('lg')]: {
@@ -32,15 +33,16 @@ export default {
         width: "100%",
         left: "0",
         bottom: "0",
-        color: "white",
         letterSpacing: "1px",
         fontSize: "12px",
         display: 'flex',
         justifyContent: 'space-between',
+        color: props => chroma.contrast('white', props.color) > chroma.contrast('black', props.color)
+            ? 'white' : "rgba(0, 0, 0, 0.5)",
     },
     deleteIcon: {
-        color: 'rgba(0, 0, 0, 0.5)',
-        transition: 'all 0.3s ease-in-out',
+        color: props => chroma.contrast('white', props.color) > chroma.contrast('black', props.color)
+            ? 'white' : "rgba(0, 0, 0, 0.5)",        transition: 'all 0.3s ease-in-out',
         [sizes.down('xs')]: {
             display: props => props.drawerOpen && 'none',
         },

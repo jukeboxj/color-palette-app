@@ -12,12 +12,10 @@ const NewColorBox = props => {
             style={{ backgroundColor : color }}>
                 <div className={classes.boxContent}>
                     <span>{name}</span>
-                <span>
                     <DeleteForeverIcon 
                         className={classes.deleteIcon}
                         onClick={handleClick}
                     />
-                </span>
                 </div>
         </div>
     )
