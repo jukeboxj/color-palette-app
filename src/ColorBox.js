@@ -30,10 +30,14 @@ class ColorBox extends Component {
                 <div className={classes.ColorBox} style={{ background: bg }}>
                     <div className={clsx(classes.copyOverlay, { [classes.showOverlay]: copied })}
                         style={{ background: bg }}></div>
-                    <div className={clsx(classes.copyMsg, { [classes.showMsg]: copied })}>
-                        <h1>Copied!</h1>
-                        <p className={classes.textColor}>{bg}</p>
-                    </div>
+                    {
+                        copied 
+                        ? <div className={clsx(classes.copyMsg, { [classes.showMsg]: copied })}>
+                            <h1>Copied!</h1>
+                            <p className={classes.textColor}>{bg}</p>
+                        </div>
+                        : null
+                    }
                     <div>
                         <div className={classes.boxContent}>
                             <span className={classes.textColor}>{name}</span>
