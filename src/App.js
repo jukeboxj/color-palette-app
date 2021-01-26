@@ -25,7 +25,7 @@ class App extends Component {
 
   findColor = (palette, colorId) => {
     return palette.colors.find(color => {
-      return color.name === colorId
+      return color.name.toLowerCase().replace(/ /g, '-') === colorId
     })
   }
 
@@ -54,34 +54,37 @@ class App extends Component {
   }
 
   colorPage = RouteProps => {
-    if (!this.findPlatte(RouteProps.match.params.paletteId)) {
+    const cID = RouteProps.match.params.colorId;
+    const pID = RouteProps.match.params.paletteId;
+    if (!this.findPlatte(pID)) {
       return <Redirect to='/' />;
     }
     if (!this.findColor(
-      this.findPlatte(RouteProps.match.params.paletteId), 
-      RouteProps.match.params.colorId
+      this.findPlatte(pID), 
+      cID
     )) {
       return this.palettePage(RouteProps);
     }
     return (
         <Page>
           <SingleColorPalette
-            colorId={RouteProps.match.params.colorId}
-            palette={generatePalette(this.findPlatte(RouteProps.match.params.paletteId))}
+            colorId={cID}
+            palette={generatePalette(this.findPlatte(pID))}
           />
         </Page>
     )
   }
 
   palettePage = RouteProps => {
-    if (!this.findPlatte(RouteProps.match.params.paletteId)) {
+    const pID = RouteProps.match.params.paletteId;
+    if (!this.findPlatte(pID)) {
       return <Redirect to='/' />;
     }
 
     return (
       <Page>
         <Palette
-          palette={generatePalette(this.findPlatte(RouteProps.match.params.paletteId))}
+          palette={generatePalette(this.findPlatte(pID))}
         />
       </Page>
     )
